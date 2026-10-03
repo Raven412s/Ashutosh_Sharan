@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
+<defs>
+  <mask id="distress-mask">
+    <rect width="800" height="200" fill="white" />
+    <polygon points="561.6,8.1 542.8,24.3 541.0,0.0" fill="black" />
+    <polygon points="582.4,170.4 564.8,176.3 547.0,175.1 558.5,163.5 564.2,163.5" fill="black" />
+    <polygon points="651.1,107.7 637.5,131.1 605.6,127.9 614.7,112.2 635.2,96.7" fill="black" />
+    <polygon points="551.3,88.0 549.9,115.7 518.6,108.3 509.7,94.8 533.9,74.6 550.5,75.8" fill="black" />
+    <polygon points="570.9,166.1 554.0,190.6 539.5,172.3 552.3,161.0" fill="black" />
+    <polygon points="217.4,122.7 175.4,158.9 154.8,114.0 188.3,84.7" fill="black" />
+    <polygon points="660.6,112.9 645.6,119.8 643.5,96.0" fill="black" />
+    <polygon points="65.9,145.2 39.2,156.6 14.9,163.9 23.8,136.4 39.0,120.6" fill="black" />
+    <polygon points="686.4,103.2 651.7,104.2 652.4,82.3" fill="black" />
+    <polygon points="794.7,17.3 781.3,29.8 764.3,25.7 751.7,0.0 775.4,0.0" fill="black" />
+    <polygon points="800.0,46.1 790.1,62.0 785.5,40.8" fill="black" />
+    <polygon points="193.6,179.6 171.8,200.0 172.6,171.6" fill="black" />
+    <polygon points="485.2,28.9 447.5,32.6 437.5,7.3" fill="black" />
+    <polygon points="398.8,2.1 391.7,14.4 380.0,9.6 379.4,0.0 392.0,0.0" fill="black" />
+    <polygon points="252.2,75.2 233.7,81.0 230.6,62.1" fill="black" />
+    <polygon points="766.9,90.1 756.0,92.4 730.4,96.2 729.7,77.7 721.3,59.4 756.1,67.1" fill="black" />
+    <polygon points="633.2,158.2 632.3,173.5 612.5,159.5 615.6,143.8 632.8,138.0" fill="black" />
+    <polygon points="432.9,105.7 418.8,153.5 376.2,101.5 397.3,77.5" fill="black" />
+    <polygon points="195.4,147.4 180.5,153.8 169.7,142.4 179.7,134.0" fill="black" />
+    <polygon points="304.8,16.8 285.5,44.6 265.4,25.9 265.8,1.3 278.7,0.0" fill="black" />
+    <polygon points="652.8,59.3 652.1,66.0 639.1,61.1 624.1,51.0 638.7,44.4 653.2,41.0" fill="black" />
+    <polygon points="495.9,127.4 481.7,147.3 469.8,133.7 477.3,124.5 483.9,114.2" fill="black" />
+    <polygon points="763.2,45.4 754.2,53.3 747.3,54.8 739.2,48.2 740.8,40.7 755.2,42.7" fill="black" />
+    <polygon points="325.3,145.4 315.1,170.3 281.1,157.1 276.4,136.4 316.5,120.6" fill="black" />
+    <polygon points="48.2,101.1 26.9,127.2 21.0,106.7 38.4,73.8" fill="black" />
+    <polygon points="465.9,183.2 404.7,200.0 423.8,178.7" fill="black" />
+    <polygon points="71.6,48.0 48.1,72.2 43.9,25.7" fill="black" />
+    <polygon points="778.2,162.6 737.7,190.2 729.7,169.3 749.5,133.9" fill="black" />
+    <polygon points="80.0,35.4 28.8,61.4 0.0,39.3 21.3,0.0" fill="black" />
+    <polygon points="794.1,30.5 781.5,38.0 778.9,14.1" fill="black" />
+    <polygon points="615.3,64.3 605.6,90.4 569.2,80.6 558.3,57.3 554.5,18.6 599.1,18.2" fill="black" />
+    <polygon points="735.1,185.4 713.3,200.0 674.2,192.2 683.5,147.9 709.4,155.0" fill="black" />
+    <polygon points="800.0,0.0 783.7,34.3 733.7,49.2 720.2,0.0 750.8,0.0 786.9,0.0" fill="black" />
+    <polygon points="69.5,19.9 43.9,30.8 16.7,52.5 0.0,11.9 15.9,0.0 49.5,0.0" fill="black" />
+    <polygon points="59.6,24.7 58.9,52.4 7.2,41.4 0.0,4.1 0.0,0.0 65.7,0.0" fill="black" />
+    <polygon points="531.2,158.5 527.0,197.6 495.5,175.9 470.5,175.0 493.7,127.9 512.6,145.5" fill="black" />
+    <polygon points="145.5,152.7 108.4,185.8 74.8,164.2 91.2,134.5 107.5,128.8" fill="black" />
+    <polygon points="91.9,143.1 42.0,180.3 24.4,132.7 66.6,86.5" fill="black" />
+    <polygon points="102.4,113.6 70.3,146.1 56.2,122.3 42.8,95.8 72.6,79.5" fill="black" />
+    <polygon points="102.3,146.4 73.7,186.9 47.4,112.3" fill="black" />
+    <polygon points="700.1,113.4 687.1,128.0 668.9,131.3 666.8,105.8 682.3,109.4" fill="black" />
+    <polygon points="436.5,53.3 404.2,61.5 389.2,67.3 391.2,32.1 412.1,33.8" fill="black" />
+    <polygon points="800.0,189.1 793.5,200.0 791.1,178.0" fill="black" />
+    <path d="M63.6,154.2 L73.4,143.1 L80.6,130.2 L92.6,121.4" stroke="black" stroke-width="1.5" stroke-linecap="round" fill="none" />
+    <path d="M121.5,161.1 L135.5,143.8 L154.5,132.1 L174.7,122.7 L190.3,106.7" stroke="black" stroke-width="2.7" stroke-linecap="round" fill="none" />
+    <path d="M534.8,19.4 L541.5,47.8 L551.4,75.2" stroke="black" stroke-width="2.0" stroke-linecap="round" fill="none" />
+    <path d="M144.5,16.1 L151.5,22.8 L160.0,27.4 L168.1,32.7" stroke="black" stroke-width="2.4" stroke-linecap="round" fill="none" />
+    <path d="M663.6,16.4 L670.7,2.3 L671.7,-13.6 L673.6,-29.3" stroke="black" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <path d="M491.8,158.1 L501.4,174.4 L503.6,193.2 L513.2,209.5 L528.3,221.0" stroke="black" stroke-width="4.0" stroke-linecap="round" fill="none" />
+    <path d="M626.9,163.2 L648.5,161.5 L665.9,174.4" stroke="black" stroke-width="1.7" stroke-linecap="round" fill="none" />
+    <path d="M606.4,96.9 L620.8,101.8 L635.8,99.5 L649.7,105.6 L664.2,101.1" stroke="black" stroke-width="3.3" stroke-linecap="round" fill="none" />
+    <path d="M3.2,140.4 L34.5,139.4 L65.7,140.8" stroke="black" stroke-width="3.0" stroke-linecap="round" fill="none" />
+    <path d="M371.2,155.8 L389.9,160.4 L408.9,163.5 L421.3,178.2 L439.4,184.8" stroke="black" stroke-width="2.9" stroke-linecap="round" fill="none" />
+    <path d="M164.8,159.7 L178.5,151.4 L193.7,146.1 L207.7,138.1" stroke="black" stroke-width="2.9" stroke-linecap="round" fill="none" />
+    <path d="M635.7,129.8 L659.6,169.5 L692.0,202.6" stroke="black" stroke-width="1.7" stroke-linecap="round" fill="none" />
+    <circle cx="421.9" cy="44.3" r="1.1" fill="black" />
+    <circle cx="225.3" cy="111.4" r="3.1" fill="black" />
+    <circle cx="180.6" cy="60.7" r="3.0" fill="black" />
+    <circle cx="94.4" cy="3.2" r="2.2" fill="black" />
+    <circle cx="384.0" cy="133.9" r="1.5" fill="black" />
+    <circle cx="345.4" cy="18.3" r="2.1" fill="black" />
+    <circle cx="794.6" cy="38.0" r="1.9" fill="black" />
+    <circle cx="314.3" cy="178.1" r="3.2" fill="black" />
+    <circle cx="437.5" cy="85.7" r="1.3" fill="black" />
+    <circle cx="562.3" cy="139.9" r="1.4" fill="black" />
+    <circle cx="681.7" cy="89.5" r="1.8" fill="black" />
+    <circle cx="545.7" cy="164.7" r="1.8" fill="black" />
+    <circle cx="455.4" cy="37.4" r="1.4" fill="black" />
+    <circle cx="267.0" cy="183.4" r="1.1" fill="black" />
+    <circle cx="418.3" cy="127.3" r="1.9" fill="black" />
+    <circle cx="200.9" cy="112.0" r="1.1" fill="black" />
+    <circle cx="386.9" cy="182.4" r="2.2" fill="black" />
+    <circle cx="125.1" cy="172.5" r="2.7" fill="black" />
+    <circle cx="438.6" cy="88.7" r="1.4" fill="black" />
+    <circle cx="436.7" cy="13.0" r="2.4" fill="black" />
+    <circle cx="183.5" cy="103.6" r="3.1" fill="black" />
+    <circle cx="590.8" cy="52.4" r="3.4" fill="black" />
+    <circle cx="175.8" cy="164.2" r="1.0" fill="black" />
+    <circle cx="380.7" cy="15.6" r="2.1" fill="black" />
+    <circle cx="510.2" cy="157.6" r="2.7" fill="black" />
+    <circle cx="544.3" cy="117.3" r="2.3" fill="black" />
+    <circle cx="458.1" cy="174.1" r="2.8" fill="black" />
+    <circle cx="247.2" cy="11.2" r="1.0" fill="black" />
+    <circle cx="520.8" cy="182.1" r="2.9" fill="black" />
+    <circle cx="398.8" cy="96.2" r="2.5" fill="black" />
+    <circle cx="624.1" cy="153.1" r="3.4" fill="black" />
+    <circle cx="772.8" cy="63.4" r="3.1" fill="black" />
+    <circle cx="482.3" cy="46.7" r="1.0" fill="black" />
+    <circle cx="328.0" cy="31.5" r="3.2" fill="black" />
+    <circle cx="46.0" cy="131.2" r="1.4" fill="black" />
+    <circle cx="186.2" cy="100.8" r="1.7" fill="black" />
+    <circle cx="285.1" cy="30.1" r="3.3" fill="black" />
+    <circle cx="102.8" cy="18.6" r="1.8" fill="black" />
+    <circle cx="674.5" cy="195.5" r="1.4" fill="black" />
+    <circle cx="611.8" cy="82.2" r="1.3" fill="black" />
+    <circle cx="635.6" cy="160.2" r="1.6" fill="black" />
+    <circle cx="467.7" cy="26.6" r="3.3" fill="black" />
+    <circle cx="587.8" cy="42.5" r="1.2" fill="black" />
+    <circle cx="492.9" cy="18.5" r="2.4" fill="black" />
+    <circle cx="69.8" cy="153.2" r="2.2" fill="black" />
+    <circle cx="392.0" cy="198.8" r="3.4" fill="black" />
+    <circle cx="459.4" cy="130.3" r="1.6" fill="black" />
+    <circle cx="788.3" cy="157.6" r="1.7" fill="black" />
+    <circle cx="325.0" cy="95.3" r="2.0" fill="black" />
+    <circle cx="561.8" cy="17.9" r="1.6" fill="black" />
+    <circle cx="246.5" cy="55.8" r="2.6" fill="black" />
+    <circle cx="266.6" cy="96.1" r="3.4" fill="black" />
+  </mask>
+</defs>
+<rect width="800" height="200" fill="black" mask="url(#distress-mask)" />
+</svg>
