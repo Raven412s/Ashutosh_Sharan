@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import "@/lib/typography/distressedStalinistExtended";
 import { DistressedText, type DistressedPreset } from "./DistressedText";
 
 interface PresetItem {

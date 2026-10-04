@@ -458,7 +458,7 @@ export function AsciiHeroCanvas({
         /* ---------------- Hero image ---------------- */
         let imageLoaded = false;
         const heroImage = new Image();
-        heroImage.src = "/hero.png";
+        heroImage.src = "/hero.webp";
         const imageTexture = gl.createTexture() as WebGLTexture;
 
         heroImage.onload = () => {

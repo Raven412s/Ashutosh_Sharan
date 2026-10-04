@@ -368,7 +368,6 @@ export function HeroSection() {
     particleActive,
     galleryProgress,
     galleryActive,
-    exitTranslateY,
   } = useMemo(() => {
     const p = scrollProgress;
 
@@ -382,9 +381,9 @@ export function HeroSection() {
     }
 
     // Phase 2 & 3: Particle Morph Canvas
-    // Stays active throughout Phase 2 AND Phase 3 (p: 0.20 -> 0.90)
+    // Stays active throughout Phase 2 AND Phase 3 (p: 0.18 -> 0.98)
     // Assembles into EXPERIENCES quickly, then remains firmly at screen center during card stream!
-    const pActive = p >= 0.18 && p <= 0.92;
+    const pActive = p >= 0.18 && p <= 0.98;
     let pProgress = 0;
     let pOpacity = 1;
 
@@ -400,23 +399,16 @@ export function HeroSection() {
       }
     }
 
-    if (p > 0.88) {
-      // Fade out on exit transition
-      pOpacity = Math.max(0, 1 - (p - 0.88) / 0.04);
+    if (p > 0.90) {
+      // Smooth fade out right as showcase stream completes and next section unpins
+      pOpacity = Math.max(0, 1 - (p - 0.90) / 0.08);
     }
 
-    // Phase 3: Square Showcase Cards Stream (p: 0.36 -> 0.88)
-    const gActive = p >= 0.33 && p <= 0.92;
+    // Phase 3: Square Showcase Cards Stream (p: 0.35 -> 0.93)
+    const gActive = p >= 0.32 && p <= 0.96;
     let gProgress = 0;
-    if (p >= 0.36) {
-      gProgress = Math.min(1, Math.max(0, (p - 0.36) / 0.52));
-    }
-
-    // Phase 4: Exit upward unpin lift (p: 0.88 -> 1.0)
-    let exitY = 0;
-    if (p >= 0.88) {
-      const exitProgress = (p - 0.88) / 0.12;
-      exitY = -exitProgress * 100; // translate stage up by -100%
+    if (p >= 0.35) {
+      gProgress = Math.min(1, Math.max(0, (p - 0.35) / 0.58));
     }
 
     return {
@@ -427,7 +419,6 @@ export function HeroSection() {
       particleActive: pActive,
       galleryProgress: gProgress,
       galleryActive: gActive,
-      exitTranslateY: exitY,
     };
   }, [scrollProgress]);
 
@@ -435,21 +426,17 @@ export function HeroSection() {
     <div
       ref={heroContainerRef}
       id="hero-scroll-container"
-      className="relative w-full h-[400vh] bg-background text-foreground select-none"
+      className="relative w-full h-[340vh] bg-transparent text-foreground select-none"
     >
       {/* Sticky Pinned Stage Viewport */}
       <section
         ref={stickyStageRef}
         id="hero-section"
-        className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-background"
+        className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-transparent"
       >
-        {/* Translating Stage Content: Canvas, particles & showcase cards scroll upward during Phase 4 unpin */}
+        {/* Stage Content: Canvas, particles & showcase cards seamlessly unpin into next section */}
         <div
           className="absolute inset-0 w-full h-full flex flex-col justify-center items-center overflow-hidden"
-          style={{
-            transform:
-              exitTranslateY !== 0 ? `translate3d(0, ${exitTranslateY}%, 0)` : undefined,
-          }}
         >
           {/* Layer 2: WebGL Photo & ASCII Transition Canvas (z-20: IN FRONT OF the logo initially!) */}
           <div
@@ -470,7 +457,7 @@ export function HeroSection() {
             {/* Mobile Fallback: Static hero image — visible on sm/md, hidden on md+ */}
             <div className="flex md:hidden w-full h-full items-end justify-center pointer-events-none overflow-hidden">
               <Image
-                src="/hero.png"
+                src="/hero.webp"
                 alt="Ashutosh Sharan - Raven"
                 width={1086}
                 height={724}
@@ -500,7 +487,7 @@ export function HeroSection() {
         {/* Layer 1: "Raven Ships" Nav Logo - FIXED so it NEVER leaves the screen! */}
         <div
           className={`fixed inset-x-0 top-0 h-screen flex flex-col items-center justify-center pointer-events-none ${
-            scrollProgress > 0.22 ? "z-9999" : "z-10"
+            scrollProgress > 0.22 ? "z-[100]" : "z-10"
           } px-4 sm:px-8`}
         >
           <div

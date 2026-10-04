@@ -71,9 +71,9 @@ export function AsciiParticleMorphCanvas({
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
 
-      // 1. Load and sample /hero.png for portrait ASCII positions
+      // 1. Load and sample /hero.webp for portrait ASCII positions
       const img = new Image();
-      img.src = "/hero.png";
+      img.src = "/hero.webp";
       img.onload = () => {
         if (!isMounted) return;
 

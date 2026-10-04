@@ -101,55 +101,77 @@ export function Navbar() {
   return (
     <>
       <style>{`
-        /* Menu overlay: clip-path curtain reveal from top */
+        /* Menu overlay: curtain wipe down on open, wipe up on close */
         .menu-overlay {
           clip-path: inset(0 0 100% 0);
-          transition:
-            clip-path 0.65s cubic-bezier(0.77, 0, 0.18, 1),
-            opacity 0.1s linear;
           opacity: 0;
-          pointer-events: none;
           visibility: hidden;
+          pointer-events: none;
+          transition:
+            clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1),
+            opacity 0.45s ease 0.15s,
+            visibility 0s linear 0.65s;
         }
         .menu-overlay.is-open {
           clip-path: inset(0 0 0% 0);
           opacity: 1;
-          pointer-events: auto;
           visibility: visible;
+          pointer-events: auto;
+          transition:
+            clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.2s ease,
+            visibility 0s linear 0s;
         }
 
-        /* Menu links: slide up from below on open */
+        /* Menu links: slide up from below on open, slide up & fade out on close */
         .menu-link-row {
           opacity: 0;
-          transform: translateY(48px);
+          transform: translateY(-20px);
           transition:
-            opacity 0.5s ease,
-            transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity 0.3s ease,
+            transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
         }
         .menu-overlay.is-open .menu-link-row {
           opacity: 1;
           transform: translateY(0);
+          transition:
+            opacity 0.5s ease,
+            transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Stagger each row */
+        /* Forward stagger on open: 1 -> 2 -> 3 -> 4 -> 5 */
         .menu-overlay.is-open .menu-link-row:nth-child(1) { transition-delay: 0.18s; }
-        .menu-overlay.is-open .menu-link-row:nth-child(2) { transition-delay: 0.26s; }
-        .menu-overlay.is-open .menu-link-row:nth-child(3) { transition-delay: 0.34s; }
-        .menu-overlay.is-open .menu-link-row:nth-child(4) { transition-delay: 0.42s; }
-        .menu-overlay.is-open .menu-link-row:nth-child(5) { transition-delay: 0.50s; }
+        .menu-overlay.is-open .menu-link-row:nth-child(2) { transition-delay: 0.25s; }
+        .menu-overlay.is-open .menu-link-row:nth-child(3) { transition-delay: 0.32s; }
+        .menu-overlay.is-open .menu-link-row:nth-child(4) { transition-delay: 0.39s; }
+        .menu-overlay.is-open .menu-link-row:nth-child(5) { transition-delay: 0.46s; }
 
-        /* Header + footer inside overlay */
-        .menu-overlay .menu-header,
-        .menu-overlay .menu-footer {
+        /* Reverse stagger on close: 5 -> 4 -> 3 -> 2 -> 1 */
+        .menu-overlay:not(.is-open) .menu-link-row:nth-child(5) { transition-delay: 0.00s; }
+        .menu-overlay:not(.is-open) .menu-link-row:nth-child(4) { transition-delay: 0.03s; }
+        .menu-overlay:not(.is-open) .menu-link-row:nth-child(3) { transition-delay: 0.06s; }
+        .menu-overlay:not(.is-open) .menu-link-row:nth-child(2) { transition-delay: 0.09s; }
+        .menu-overlay:not(.is-open) .menu-link-row:nth-child(1) { transition-delay: 0.12s; }
+
+        /* Header and footer inside overlay */
+        .menu-overlay .menu-header {
           opacity: 0;
           transform: translateY(-12px);
-          transition: opacity 0.45s ease, transform 0.45s ease;
+          transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+        .menu-overlay .menu-footer {
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.28s ease, transform 0.28s ease;
         }
         .menu-overlay.is-open .menu-header,
         .menu-overlay.is-open .menu-footer {
           opacity: 1;
           transform: translateY(0);
-          transition-delay: 0.12s;
+          transition:
+            opacity 0.45s ease,
+            transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          transition-delay: 0.14s;
         }
       `}</style>
 
@@ -204,10 +226,10 @@ export function Navbar() {
         >
           {/* Quick Nav Links (Visible when menu is closed) — always precedes the toggle */}
           <ul
-            className={`order-1 navbar-quick-links flex flex-row sm:flex-col items-center sm:items-end gap-3.5 sm:gap-1.5 transition-all duration-300 ${
+            className={`order-1 navbar-quick-links flex flex-row sm:flex-col items-center sm:items-end gap-3.5 sm:gap-1.5 transition-all ${
               isOpen
-                ? "opacity-0 pointer-events-none -translate-x-2 sm:translate-x-0 sm:-translate-y-2"
-                : "opacity-100 pointer-events-auto translate-x-0 translate-y-0"
+                ? "opacity-0 pointer-events-none -translate-x-2 sm:translate-x-0 sm:-translate-y-2 duration-200"
+                : "opacity-100 pointer-events-auto translate-x-0 translate-y-0 delay-300 duration-400"
             }`}
           >
             {quickNavLinks.map((link) => (
