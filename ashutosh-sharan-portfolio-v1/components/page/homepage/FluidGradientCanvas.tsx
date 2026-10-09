@@ -365,8 +365,10 @@ export function FluidGradientCanvas({
     const uBrightLoc = gl.getUniformLocation(prog, "uBrightness");
 
     // Resize handler with DPR clamping for high performance
+    const isMobileDevice = typeof window !== "undefined" && (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches);
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const maxDpr = isMobileDevice ? 1.0 : 1.5;
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       const w = canvas.clientWidth || window.innerWidth;
       const h = canvas.clientHeight || window.innerHeight;
       const bw = Math.round(w * dpr);
@@ -400,6 +402,11 @@ export function FluidGradientCanvas({
 
     const render = () => {
       animId = requestAnimationFrame(render);
+
+      // Pause GPU work when tab is in background
+      if (typeof document !== "undefined" && document.hidden) {
+        return;
+      }
 
       // Smooth mouse lerp
       const m = mouseRef.current;

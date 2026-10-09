@@ -213,8 +213,15 @@ export function AsciiParticleMorphCanvas({
       if (typeof document !== "undefined" && document.fonts) {
         await document.fonts.ready;
       }
-      if (isMounted) {
-        setupParticles();
+      if (!isMounted) return;
+      if ("requestIdleCallback" in window) {
+        (window as Window & { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(() => {
+          if (isMounted) setupParticles();
+        });
+      } else {
+        setTimeout(() => {
+          if (isMounted) setupParticles();
+        }, 500);
       }
     };
 

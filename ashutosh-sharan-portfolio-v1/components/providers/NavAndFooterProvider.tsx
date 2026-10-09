@@ -1,8 +1,18 @@
 "use client";
 
 import React from "react";
-import { Navbar } from "../layout/Navbar";
-import { FluidGradientCanvas } from "../page/homepage/FluidGradientCanvas";
+import dynamic from "next/dynamic";
+import { MenuProvider } from "../layout/MenuContext";
+import { MenuLayout } from "../layout/MenuLayout";
+
+// Dynamically load heavy full-viewport WebGL background on client-side only
+const FluidGradientCanvas = dynamic(
+  () =>
+    import("../page/homepage/FluidGradientCanvas").then(
+      (mod) => mod.FluidGradientCanvas
+    ),
+  { ssr: false }
+);
 
 interface NavAndFooterProviderProps {
   children: React.ReactNode;
@@ -10,7 +20,7 @@ interface NavAndFooterProviderProps {
 
 const NavAndFooterProvider = ({ children }: NavAndFooterProviderProps) => {
   return (
-    <>
+    <MenuProvider>
       {/* Global Site-wide Fixed WebGL Fluid Gradient Background */}
       <div
         aria-hidden="true"
@@ -19,12 +29,9 @@ const NavAndFooterProvider = ({ children }: NavAndFooterProviderProps) => {
         <FluidGradientCanvas showControls={false} />
       </div>
 
-      <Navbar />
-      <div className="relative z-10 w-full min-h-screen">
-        {children}
-      </div>
-      {/* <Footer/> */}
-    </>
+      {/* Complete Interactive Navigation & Box Down-Shift Drawer System */}
+      <MenuLayout>{children}</MenuLayout>
+    </MenuProvider>
   );
 };
 

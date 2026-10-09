@@ -175,7 +175,6 @@ export function DualStreamShowcase({
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 60vw, 300px"
-                  priority={index < 3}
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-105 select-none"
                   draggable={false}
                 />

@@ -338,6 +338,7 @@ export function AsciiHeroCanvas({
 
         const canvas = canvasRef.current;
         if (!canvas) return;
+        if (typeof window !== "undefined" && window.innerWidth < 768) return;
 
         const gl = canvas.getContext("webgl", {
             alpha: true,

@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
       "gsap",
       "@gsap/react",
       "lenis",
+      "react-icons",
+      "framer-motion",
     ],
   },
 

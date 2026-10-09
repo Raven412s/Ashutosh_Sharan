@@ -273,7 +273,6 @@ export function WhoIsRavenSection() {
                   fill
                   sizes="(max-width: 768px) 85vw, 560px"
                   className="object-cover pointer-events-none select-none"
-                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
                   <span className="text-sm font-mono text-white/95 font-semibold">
@@ -302,7 +301,6 @@ export function WhoIsRavenSection() {
                   fill
                   sizes="(max-width: 768px) 85vw, 560px"
                   className="object-cover pointer-events-none select-none"
-                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
                   <span className="text-sm font-mono text-white/95 font-semibold">
@@ -331,7 +329,6 @@ export function WhoIsRavenSection() {
                   fill
                   sizes="(max-width: 768px) 85vw, 560px"
                   className="object-cover pointer-events-none select-none"
-                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
                   <span className="text-sm font-mono text-white/95 font-semibold">

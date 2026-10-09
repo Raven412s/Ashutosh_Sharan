@@ -9,10 +9,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import {
-  frijole,
-  passeroOne,
   quickSand,
-  rubikMaze,
   spaceMono,
   stalinistOne,
 } from "../fonts";
@@ -62,7 +59,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${spaceMono.variable} ${stalinistOne.variable} ${passeroOne.variable} ${rubikMaze.variable} ${frijole.variable} ${quickSand.variable} h-full antialiased`}
+      className={`${spaceMono.variable} ${stalinistOne.variable} ${quickSand.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>

@@ -2,13 +2,28 @@
 
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { AsciiHeroCanvas } from "./AsciiHeroCanvas";
-import { AsciiParticleMorphCanvas } from "./AsciiParticleMorphCanvas";
-import { DualStreamShowcase } from "./DualStreamShowcase";
 import { DistressedText } from "@/components/typography/DistressedText";
+import { useMenu } from "@/components/layout/MenuContext";
+
+// Lazy-load heavy canvas & showcase components to drastically shrink initial JS bundle and TBT
+const AsciiHeroCanvas = dynamic(
+  () => import("./AsciiHeroCanvas").then((mod) => mod.AsciiHeroCanvas),
+  { ssr: false }
+);
+
+const AsciiParticleMorphCanvas = dynamic(
+  () => import("./AsciiParticleMorphCanvas").then((mod) => mod.AsciiParticleMorphCanvas),
+  { ssr: false }
+);
+
+const DualStreamShowcase = dynamic(
+  () => import("./DualStreamShowcase").then((mod) => mod.DualStreamShowcase),
+  { ssr: false }
+);
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -25,9 +40,32 @@ export function HeroSection() {
   const shipsTextRef = useRef<HTMLSpanElement | null>(null);
   const asciiWrapRef = useRef<HTMLDivElement | null>(null);
 
+  const { isMenuOpen } = useMenu();
+  const isMenuOpenRef = useRef(isMenuOpen);
+  useEffect(() => {
+    isMenuOpenRef.current = isMenuOpen;
+    const strokeColor = isMenuOpen ? "#ffffff" : "#1e1e1e";
+    if (shipsTextRef.current) {
+      const curStroke = shipsTextRef.current.style.webkitTextStroke.split(" ")[0] || "1.6px";
+      shipsTextRef.current.style.webkitTextStroke = `${curStroke} ${strokeColor}`;
+    }
+    if (ravenStrokedRef.current) {
+      const curStroke = ravenStrokedRef.current.style.webkitTextStroke.split(" ")[0] || "2px";
+      ravenStrokedRef.current.style.webkitTextStroke = `${curStroke} ${strokeColor}`;
+    }
+  }, [isMenuOpen]);
+
   const [isRevealed, setIsRevealed] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop, { passive: true });
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   // Allow pressing 'R' in dev mode to re-trigger reveal smoothly
   useEffect(() => {
@@ -98,10 +136,15 @@ export function HeroSection() {
         fontSize: `${initialFontSize}px`,
       });
 
-      const shipsWidth = shipsWrap.offsetWidth || 135;
-      const ravenHeight = ravenWrap.offsetHeight || 36;
-      const sideBySideX = shipsWidth + 16;
-      const sideBySideY = -ravenHeight;
+      gsap.set(shipsWrap, { x: 0, y: 0 });
+      const ravenRect = ravenWrap.getBoundingClientRect();
+      const shipsRect = shipsWrap.getBoundingClientRect();
+
+      // Perfectly center-align Ships vertically with Raven side-by-side
+      const ravenCenter = ravenRect.top + ravenRect.height / 2;
+      const shipsCenter = shipsRect.top + shipsRect.height / 2;
+      const sideBySideY = Math.round(ravenCenter - shipsCenter);
+      const sideBySideX = Math.round((ravenRect.right + 14) - shipsRect.left);
 
       gsap.set(shipsWrap, {
         x: sideBySideX,
@@ -131,17 +174,17 @@ export function HeroSection() {
       // STEP 1: Centered Outline Logo
       tl.to(logoContainer, {
         opacity: 1,
-        duration: 0.6,
+        duration: 0.35,
         ease: "power2.out",
       });
 
-      tl.to({}, { duration: 0.25 });
+      tl.to({}, { duration: 0.08 });
 
       // STEP 2: Left-to-Right Stencil Wipe Fill
       const wipe = { progress: 0 };
       tl.to(wipe, {
         progress: 100,
-        duration: 0.95,
+        duration: 0.45,
         ease: "power2.inOut",
         onUpdate: () => {
           const p = wipe.progress;
@@ -150,14 +193,14 @@ export function HeroSection() {
         },
       });
 
-      tl.to({}, { duration: 0.25 });
+      tl.to({}, { duration: 0.08 });
 
       // STEP 3: Raven grows, Ships moves under
       tl.to(
         ravenWrap,
         {
           fontSize: `${step3RavenSize}px`,
-          duration: 0.85,
+          duration: 0.35,
           ease: "power3.inOut",
         },
         "step3"
@@ -167,14 +210,14 @@ export function HeroSection() {
         shipsWrap,
         {
           x: 0,
-          y: 6,
-          duration: 0.75,
+          y: 0,
+          duration: 0.3,
           ease: "power2.out",
         },
-        "step3+=0.15"
+        "step3+=0.06"
       );
 
-      tl.to({}, { duration: 0.35 });
+      tl.to({}, { duration: 0.1 });
 
       // STEP 4: Fullscreen Climax
       tl.to(
@@ -182,7 +225,7 @@ export function HeroSection() {
         {
           x: 0,
           y: targetLiftY,
-          duration: 1.25,
+          duration: 0.55,
           ease: "power3.inOut",
         },
         "step4"
@@ -192,7 +235,7 @@ export function HeroSection() {
         ravenWrap,
         {
           fontSize: `${targetRavenSize}px`,
-          duration: 1.25,
+          duration: 0.55,
           ease: "power3.inOut",
         },
         "step4"
@@ -202,8 +245,8 @@ export function HeroSection() {
         shipsWrap,
         {
           fontSize: `${targetShipsSize}px`,
-          y: isMobile ? 4 : 10,
-          duration: 1.25,
+          y: isMobile ? 0 : 2,
+          duration: 0.55,
           ease: "power3.inOut",
         },
         "step4"
@@ -215,7 +258,7 @@ export function HeroSection() {
           window.dispatchEvent(new CustomEvent("navbar-reveal"));
         },
         [],
-        "step4+=0.4"
+        "step4+=0.15"
       );
 
       // Waterfall stagger on Quick Nav
@@ -227,11 +270,11 @@ export function HeroSection() {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.12,
-            duration: 0.6,
+            stagger: 0.08,
+            duration: 0.35,
             ease: "power2.out",
           },
-          "step4+=0.55"
+          "step4+=0.18"
         );
       }
 
@@ -240,20 +283,20 @@ export function HeroSection() {
         tl.fromTo(
           navToggleElement,
           { scale: 0.8, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" },
-          "step4+=0.65"
+          { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.4)" },
+          "step4+=0.2"
         );
       }
 
-      // Hero Canvas unmasks (Real photo + radial repel first!)
+      // Hero Canvas & Image unmasks promptly
       tl.to(
         asciiWrap,
         {
           opacity: 1,
-          duration: 0.9,
+          duration: 0.45,
           ease: "power2.out",
         },
-        "step4+=0.65"
+        "step4+=0.12"
       );
     },
     { scope: heroContainerRef, dependencies: [animationKey] }
@@ -270,6 +313,7 @@ export function HeroSection() {
         end: "bottom bottom",
         scrub: 0.45,
         onUpdate: (self) => {
+          if (isMenuOpenRef.current) return;
           const p = self.progress;
           setScrollProgress(p);
 
@@ -320,18 +364,19 @@ export function HeroSection() {
             ships.style.fontSize = `${curShipsFont}px`;
 
             // Proportional stroke width interpolation (prevents chunky stroke blobs at small font size)
+            const strokeColor = isMenuOpenRef.current ? "#ffffff" : "#1e1e1e";
             if (shipsText) {
               const curShipsStroke = 1.6 + (0.45 - 1.6) * ease;
-              shipsText.style.webkitTextStroke = `${curShipsStroke}px #1e1e1e`;
+              shipsText.style.webkitTextStroke = `${curShipsStroke}px ${strokeColor}`;
             }
 
             if (ravenStroked) {
               const curRavenStroke = 2.0 + (0.8 - 2.0) * ease;
-              ravenStroked.style.webkitTextStroke = `${curRavenStroke}px #1e1e1e`;
+              ravenStroked.style.webkitTextStroke = `${curRavenStroke}px ${strokeColor}`;
             }
 
             // Proportional vertical gap between Raven and Ships
-            const startGap = isMobile ? 6 : 12;
+            const startGap = isMobile ? 0 : 2;
             const finalGap = isMobile ? 2.5 : 3.5;
             const curShipsY = startGap + (finalGap - startGap) * ease;
             ships.style.transform = `translate3d(0, ${curShipsY}px, 0)`;
@@ -444,15 +489,17 @@ export function HeroSection() {
             className="absolute inset-0 z-20 pointer-events-none flex items-end justify-center will-change-opacity"
             style={{ opacity: asciiOpacity }}
           >
-            {/* Desktop WebGL GLSL Shader Canvas — hidden on mobile for performance */}
-            <div className="hidden md:block w-full h-full pointer-events-none">
-              <AsciiHeroCanvas
-                isRevealed={isRevealed}
-                asciiProgress={asciiProgress}
-                opacity={asciiOpacity}
-                className="w-full h-full"
-              />
-            </div>
+            {/* Desktop WebGL GLSL Shader Canvas — conditionally mounted on desktop only */}
+            {isDesktop && (
+              <div className="hidden md:block w-full h-full pointer-events-none">
+                <AsciiHeroCanvas
+                  isRevealed={isRevealed}
+                  asciiProgress={asciiProgress}
+                  opacity={asciiOpacity}
+                  className="w-full h-full"
+                />
+              </div>
+            )}
 
             {/* Mobile Fallback: Static hero image — visible on sm/md, hidden on md+ */}
             <div className="flex md:hidden w-full h-full items-end justify-center pointer-events-none overflow-hidden">
@@ -461,6 +508,7 @@ export function HeroSection() {
                 alt="Ashutosh Sharan - Raven"
                 width={1086}
                 height={724}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 priority
                 className="h-[72vh] sm:h-[80vh] w-auto max-w-none object-contain object-bottom select-none translate-x-[8%]"
                 draggable={false}
@@ -505,7 +553,7 @@ export function HeroSection() {
             {/* RAVEN */}
             <div
               ref={ravenWrapRef}
-              className="relative inline-block font-stalinist-one leading-0 tracking-tight will-change-transform"
+              className="relative inline-block font-stalinist-one leading-none tracking-tight will-change-transform"
               style={{
                 fontSize: isRevealed ? "clamp(72px, 12.5vw, 240px)" : undefined,
               }}
@@ -514,7 +562,14 @@ export function HeroSection() {
                 ref={ravenStrokedRef}
                 className="inline-block will-change-[clip-path]"
               >
-                <span className="inline-block text-transparent [-webkit-text-stroke:2px_#1e1e1e]">R</span>
+                <span
+                  className="inline-block text-transparent transition-colors duration-300"
+                  style={{
+                    WebkitTextStroke: `2px ${isMenuOpen ? "#ffffff" : "#1e1e1e"}`,
+                  }}
+                >
+                  R
+                </span>
                 <DistressedText
                   stroked
                   strokeWidth={2}
@@ -525,13 +580,26 @@ export function HeroSection() {
                 >
                   a
                 </DistressedText>
-                <span className="inline-block text-transparent [-webkit-text-stroke:2px_#1e1e1e]">ven</span>
+                <span
+                  className="inline-block text-transparent transition-colors duration-300"
+                  style={{
+                    WebkitTextStroke: `2px ${isMenuOpen ? "#ffffff" : "#1e1e1e"}`,
+                  }}
+                >
+                  ven
+                </span>
               </span>
               <span
                 ref={ravenFilledRef}
-                className="absolute inset-0 inline-block text-[#1e1e1e] will-change-[clip-path]"
+                className="absolute inset-0 inline-block will-change-[clip-path]"
               >
-                <span>R</span>
+                <span
+                  className={`inline-block transition-colors duration-300 ${
+                    isMenuOpen ? "text-white" : "text-[#1e1e1e]"
+                  }`}
+                >
+                  R
+                </span>
                 <DistressedText
                   color="#DC143C"
                   inlineChar
@@ -539,21 +607,30 @@ export function HeroSection() {
                 >
                   a
                 </DistressedText>
-                <span>ven</span>
+                <span
+                  className={`inline-block transition-colors duration-300 ${
+                    isMenuOpen ? "text-white" : "text-[#1e1e1e]"
+                  }`}
+                >
+                  ven
+                </span>
               </span>
             </div>
 
             {/* SHIPS */}
             <div
               ref={shipsWrapRef}
-              className="inline-block font-stalinist-one leading-0 tracking-tight text-right will-change-transform"
+              className="inline-block font-stalinist-one leading-none tracking-tight text-right will-change-transform"
               style={{
                 fontSize: isRevealed ? "clamp(25px, 4.38vw, 84px)" : undefined,
               }}
             >
               <span
                 ref={shipsTextRef}
-                className="inline-block text-transparent [-webkit-text-stroke:1.6px_#1e1e1e]"
+                className="inline-block text-transparent transition-colors duration-300"
+                style={{
+                  WebkitTextStroke: `1.6px ${isMenuOpen ? "#ffffff" : "#1e1e1e"}`,
+                }}
               >
                 Ships
               </span>
